@@ -4,7 +4,7 @@ class MyComponent extends StatelessWidget {
   final String displayString;
 
   @override
-  Widget build(_) => Text(displayString);
+  build(_) => Text(displayString);
 }
 
 // ==== Conditional Rendering
@@ -13,7 +13,7 @@ class ConditionalComponent extends StatelessWidget {
   final bool condition;
 
   @override
-  Widget build(_) {
+  build(_) {
     if (condition) {
       return Text("Condition is true");
     } else {
@@ -31,21 +31,21 @@ class Parent extends StatelessWidget {
   final String data;
 
   @override
-  Widget build(_) => IntermediateComponent(data: data);
+  build(_) => IntermediateComponent(data: data);
 }
 
 class IntermediateComponent extends StatelessWidget {
   final String data;
 
   @override
-  Widget build(_) => ChildComponent(data: data);
+  build(_) => ChildComponent(data: data);
 }
 
 class ChildComponent extends StatelessWidget {
   final String data;
 
   @override
-  Widget build(_) => Text("Received data: $data");
+  build(_) => Text("Received data: $data");
 }
 
 // Usage
@@ -62,7 +62,7 @@ class _ClickableComponentState extends State<ClickableComponent> {
   bool clicked = false;
 
   @override
-  Widget build(_) => RaisedButton(
+  build(_) => RaisedButton(
     onPressed: () => setState(() => clicked = true),
     child: Text(clicked ? "Button clicked" : "Click me"),
   );
@@ -79,13 +79,13 @@ class _TextInputComponentState extends State<TextInputComponent> {
   late final _controller = TextEditingController(text: "");
 
   @override
-  void dispose() {
+  dispose() {
     _controller.dispose();
     super.dispose();
   }
 
   @override
-  Widget build(_) => TextField(
+  build(_) => TextField(
     controller: _controller,
     decoration: const InputDecoration(labelText: "Enter text"),
   );
@@ -97,7 +97,7 @@ class ListComponent extends StatelessWidget {
   final List<String> items;
 
   @override
-  Widget build(_) => ListView.builder(
+  build(_) => ListView.builder(
     itemCount: items.length,
     itemBuilder: (_, index) => ListTile(title: Text(items[index])),
   );
@@ -119,7 +119,7 @@ class ItemKeysExample extends StatelessWidget {
   final List<Person> items;
 
   @override
-  Widget build(_) => ListView.builder(
+  build(_) => ListView.builder(
     itemCount: items.length,
     itemBuilder: (_, index) {
       final person = items[index];
@@ -145,7 +145,7 @@ class Parent extends StatelessWidget {
   final Widget content;
 
   @override
-  Widget build(_) => Column(children: [header, content]);
+  build(_) => Column(children: [header, content]);
 }
 
 // Usage
@@ -153,7 +153,7 @@ Parent(header: Text("Header"), content: Child())
 
 class Child extends StatelessWidget {
   @override
-  Widget build(_) => Text("Child Content");
+  build(_) => Text("Child Content");
 }
 
 // ==== Modifiers
@@ -161,7 +161,7 @@ class Child extends StatelessWidget {
 // In Flutter, you can wrap widgets with other widgets to achieve similar effects.
 class ModifiersExample extends StatelessWidget {
   @override
-  Widget build(_) => Container(
+  build(_) => Container(
     padding: EdgeInsets.all(16.0),
     color: Colors.blue,
     child: Text('Hello, World!', style: TextStyle(color: Colors.white)),
@@ -172,14 +172,14 @@ class ModifiersExample extends StatelessWidget {
 
 class Counter extends StatefulWidget {
   @override
-  _CounterState createState() => _CounterState();
+  createState() => _CounterState();
 }
 
 class _CounterState extends State<Counter> {
   int count = 0;
 
   @override
-  Widget build(_) => RaisedButton(
+  build(_) => RaisedButton(
     onPressed: () => setState(() => count += 1),
     child: Text("Count: $count"),
   );
@@ -191,7 +191,7 @@ class CustomInheritedWidget extends InheritedWidget {
   final String data;
 
   @override
-  bool updateShouldNotify(CustomInheritedWidget oldWidget) =>
+  updateShouldNotify(CustomInheritedWidget oldWidget) =>
       oldWidget.data != data;
 }
 
@@ -204,7 +204,7 @@ class Parent extends StatelessWidget {
   final String data;
 
   @override
-  Widget build(_) => CustomInheritedWidget(
+  build(_) => CustomInheritedWidget(
     data: data,
     child: Intermediate(),
   );
@@ -212,13 +212,12 @@ class Parent extends StatelessWidget {
 
 class Intermediate extends StatelessWidget {
   @override
-  Widget build(_) => Child();
+  build(_) => Child();
 }
 
 class Child extends StatelessWidget {
   @override
-  Widget build(_) =>
-      Text("Received data: ${context.customInheritedWidget.data}");
+  build(_) => Text("Received data: ${context.customInheritedWidget.data}");
 }
 
 // Usage
@@ -228,17 +227,16 @@ Parent(data: "Some data")
 
 class SideEffectOnLoadComponent extends StatefulWidget {
   @override
-  _SideEffectOnLoadComponentState createState() =>
-      _SideEffectOnLoadComponentState();
+  createState() => _SideEffectOnLoadComponentState();
 }
 
 class _SideEffectOnLoadComponentState extends State<SideEffectOnLoadComponent> {
   @override
-  void initState() {
+  initState() {
     super.initState();
     // Perform side effect, e.g. fetch data, update external data source
   }
 
   @override
-  Widget build(_) => Container(); // Other UI components
+  build(_) => Container(); // Other UI components
 }
