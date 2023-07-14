@@ -3,12 +3,8 @@
 class MyComponent extends StatelessWidget {
   final String displayString;
 
-  MyComponent({required this.displayString});
-
   @override
-  Widget build(BuildContext context) {
-    return Text(displayString);
-  }
+  Widget build(_) => Text(displayString);
 }
 
 // ==== Conditional Rendering
@@ -16,10 +12,8 @@ class MyComponent extends StatelessWidget {
 class ConditionalComponent extends StatelessWidget {
   final bool condition;
 
-  ConditionalComponent({required this.condition});
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(_) {
     if (condition) {
       return Text("Condition is true");
     } else {
@@ -36,34 +30,22 @@ ConditionalComponent(condition: true)
 class Parent extends StatelessWidget {
   final String data;
 
-  Parent({required this.data});
-
   @override
-  Widget build(BuildContext context) {
-    return IntermediateComponent(data: data);
-  }
+  Widget build(_) => IntermediateComponent(data: data);
 }
 
 class IntermediateComponent extends StatelessWidget {
   final String data;
 
-  IntermediateComponent({required this.data});
-
   @override
-  Widget build(BuildContext context) {
-    return ChildComponent(data: data);
-  }
+  Widget build(_) => ChildComponent(data: data);
 }
 
 class ChildComponent extends StatelessWidget {
   final String data;
 
-  ChildComponent({required this.data});
-
   @override
-  Widget build(BuildContext context) {
-    return Text("Received data: $data");
-  }
+  Widget build(_) => Text("Received data: $data");
 }
 
 // Usage
@@ -80,19 +62,15 @@ class _ClickableComponentState extends State<ClickableComponent> {
   bool clicked = false;
 
   @override
-  Widget build(BuildContext context) {
-    return RaisedButton(
-      onPressed: () => setState(() => clicked = true),
-      child: Text(clicked ? "Button clicked" : "Click me"),
-    );
-  }
+  Widget build(_) => RaisedButton(
+    onPressed: () => setState(() => clicked = true),
+    child: Text(clicked ? "Button clicked" : "Click me"),
+  );
 }
 
 // ==== Handing user input
 
 class TextInputComponent extends StatefulWidget {
-  const TextInputComponent({super.key});
-
   @override
   State<TextInputComponent> createState() => _TextInputComponentState();
 }
@@ -107,12 +85,10 @@ class _TextInputComponentState extends State<TextInputComponent> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return TextField(
-      controller: _controller,
-      decoration: const InputDecoration(labelText: "Enter text"),
-    );
-  }
+  Widget build(_) => TextField(
+    controller: _controller,
+    decoration: const InputDecoration(labelText: "Enter text"),
+  );
 }
 
 // ==== Lists & Looping
@@ -120,17 +96,11 @@ class _TextInputComponentState extends State<TextInputComponent> {
 class ListComponent extends StatelessWidget {
   final List<String> items;
 
-  ListComponent({required this.items});
-
   @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: items.length,
-      itemBuilder: (context, index) {
-        return ListTile(title: Text(items[index]));
-      },
-    );
-  }
+  Widget build(_) => ListView.builder(
+    itemCount: items.length,
+    itemBuilder: (_, index) => ListTile(title: Text(items[index])),
+  );
 }
 
 // Usage
@@ -143,28 +113,22 @@ class Person {
   final String name;
   final int age;
   final String id;
-
-  Person({required this.name, required this.age, required this.id});
 }
 
 class ItemKeysExample extends StatelessWidget {
   final List<Person> items;
 
-  ItemKeysExample({required this.items});
-
   @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: items.length,
-      itemBuilder: (context, index) {
-        final person = items[index];
-        return ListTile(
-          key: Key(person.id),
-          title: Text('Name: ${person.name}, Age: ${person.age}'),
-        );
-      },
-    );
-  }
+  Widget build(_) => ListView.builder(
+    itemCount: items.length,
+    itemBuilder: (_, index) {
+      final person = items[index];
+      return ListTile(
+        key: Key(person.id),
+        title: Text('Name: ${person.name}, Age: ${person.age}'),
+      );
+    },
+  );
 }
 
 // Usage
@@ -180,17 +144,8 @@ class Parent extends StatelessWidget {
   final Widget header;
   final Widget content;
 
-  Parent({required this.header, required this.content});
-
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        header,
-        content,
-      ],
-    );
-  }
+  Widget build(_) => Column(children: [header, content]);
 }
 
 // Usage
@@ -198,9 +153,7 @@ Parent(header: Text("Header"), content: Child())
 
 class Child extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return Text("Child Content");
-  }
+  Widget build(_) => Text("Child Content");
 }
 
 // ==== Modifiers
@@ -208,13 +161,11 @@ class Child extends StatelessWidget {
 // In Flutter, you can wrap widgets with other widgets to achieve similar effects.
 class ModifiersExample extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(16.0),
-      color: Colors.blue,
-      child: Text('Hello, World!', style: TextStyle(color: Colors.white)),
-    );
-  }
+  Widget build(_) => Container(
+    padding: EdgeInsets.all(16.0),
+    color: Colors.blue,
+    child: Text('Hello, World!', style: TextStyle(color: Colors.white)),
+  );
 }
 
 // ==== State
@@ -228,12 +179,10 @@ class _CounterState extends State<Counter> {
   int count = 0;
 
   @override
-  Widget build(BuildContext context) {
-    return RaisedButton(
-      onPressed: () => setState(() => count += 1),
-      child: Text("Count: $count"),
-    );
-  }
+  Widget build(_) => RaisedButton(
+    onPressed: () => setState(() => count += 1),
+    child: Text("Count: $count"),
+  );
 }
 
 // ==== Scoped Data Propagation
@@ -241,46 +190,35 @@ class _CounterState extends State<Counter> {
 class CustomInheritedWidget extends InheritedWidget {
   final String data;
 
-  CustomInheritedWidget({required this.data, required Widget child})
-      : super(child: child);
-
   @override
-  bool updateShouldNotify(CustomInheritedWidget oldWidget) {
-    return oldWidget.data != data;
-  }
+  bool updateShouldNotify(CustomInheritedWidget oldWidget) =>
+      oldWidget.data != data;
+}
 
-  static CustomInheritedWidget of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<CustomInheritedWidget>()!;
-  }
+extension CustomInheritedWidgetContext on BuildContext {
+  CustomInheritedWidget get customInheritedWidget =>
+      dependOnInheritedWidgetOfExactType<CustomInheritedWidget>()!;
 }
 
 class Parent extends StatelessWidget {
   final String data;
 
-  Parent({required this.data});
-
   @override
-  Widget build(BuildContext context) {
-    return CustomInheritedWidget(
-      data: data,
-      child: Intermediate(),
-    );
-  }
+  Widget build(_) => CustomInheritedWidget(
+    data: data,
+    child: Intermediate(),
+  );
 }
 
 class Intermediate extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return Child();
-  }
+  Widget build(_) => Child();
 }
 
 class Child extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    final data = CustomInheritedWidget.of(context).data;
-    return Text("Received data: $data");
-  }
+  Widget build(_) =>
+      Text("Received data: ${context.customInheritedWidget.data}");
 }
 
 // Usage
@@ -302,8 +240,5 @@ class _SideEffectOnLoadComponentState extends State<SideEffectOnLoadComponent> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    // Other UI components
-    return Container();
-  }
+  Widget build(_) => Container(); // Other UI components
 }
